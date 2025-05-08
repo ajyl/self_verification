@@ -1,0 +1,7 @@
+
+This repository contains code to reproduce the main results of our paper.
+Please set `base_dir` accordingly in the notebook.
+
+* `data_and_ckpts/interv_data.pt` contains test cases used for interventions.
+* `data_and_ckpts/probe.pt` is the probe used for the analysis.
+* `data_and_ckpts/global_step_300` is the directory containing the model checkpoint.
