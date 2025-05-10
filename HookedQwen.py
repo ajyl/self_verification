@@ -108,14 +108,10 @@ def hooked_forward_attention(
     # attn_weights: [batch, heads, seq (query), seq (key)]
     # attn_output: [batch, seq, heads, head_dim]
     attn_weights = self.hook_attn_pattern(attn_weights)
-    # attn_output_reshaped: [batch, seq, d_model (heads * head_dim)]
-    #attn_output_reshaped = attn_output.reshape(*input_shape, -1).contiguous()
 
     W_O = self.o_proj.weight #.clone()
     # [heads, d_head, d_model]
     W_O = einops.rearrange(W_O, "m (n h)->n h m", n=self.config.num_attention_heads)
-    # self.o_proj: [d_model, d_model]
-    #attn_output_final = self.hook_o_proj(self.o_proj(attn_output_reshaped))
     attn_output_per_head = einsum(
         "batch seq heads d_head, heads d_head d_model -> batch seq heads d_model",
         attn_output,
